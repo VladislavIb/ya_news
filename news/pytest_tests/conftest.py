@@ -93,3 +93,9 @@ def comments(single_news, author):
         comment.save()
         comments.append(comment)
     return comments
+
+
+@pytest.fixture
+def form_data():
+    """Фикстура с данными формы."""
+    return {'text': 'Текст комментария'}

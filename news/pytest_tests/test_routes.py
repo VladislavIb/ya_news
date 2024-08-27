@@ -1,6 +1,5 @@
 """Тестирование маршрутов."""
 import pytest
-
 from http import HTTPStatus
 
 from django.urls import reverse
@@ -53,3 +52,11 @@ def test_redirect_for_anonymous_client(client, name, comment):
     response = client.get(url)
     assert response.status_code == HTTPStatus.FOUND
     assert response.url == redirect_url
+
+
+@pytest.mark.django_db
+def test_detail_page_availability_for_anonymous_user(client, single_news):
+    """Проверка доступности детальной страницы."""
+    url = reverse('news:detail', args=(single_news.id,))
+    response = client.get(url)
+    assert response.status_code == HTTPStatus.OK
